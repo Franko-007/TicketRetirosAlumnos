@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Retiro – Liceo Bicentenario Ntra. Sra. de Guadalupe</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/sxxwfhwK/LOGO-LBSNG-06-237x300.png">
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Hoja de estilos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <img src="https://i.postimg.cc/sxxwfhwK/LOGO-LBSNG-06-237x300.png"
+         alt="Logo Liceo Bicentenario"
+         class="logo-img"
+         onerror="this.style.display='none'">
+    <div class="school-info">
+      <p class="school-subtitle">LICEO BICENTENARIO</p>
+      <h1 class="school-name">Nuestra Señora de Guadalupe</h1>
+      <p class="school-tagline">Sistema de Retiro de Alumnos · Santiago, Chile</p>
+    </div>
+    <div class="header-badge">
+      <span id="current-time">--:--</span>
+      <span id="current-date">---</span>
+    </div>
+  </div>
+</header>
+
+
+<!-- ════════════════════════════════════════════════════
+     NAVEGACIÓN (Pestañas)
+════════════════════════════════════════════════════ -->
+<nav class="nav-tabs">
+  <div class="nav-tabs-inner">
+    <button class="nav-tab active" onclick="showPage('retiro', this)">🎫 Retiro de Alumnos</button>
+    <button class="nav-tab"        onclick="showPage('informe', this)">📊 Informe Mensual</button>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════
+     PÁGINA: RETIRO DE ALUMNOS
+════════════════════════════════════════════════════ -->
+<div class="page active" id="page-retiro">
+  <main class="main-container">
+
+    <!-- ── Formulario ── -->
+    <section class="form-panel">
+      <div class="panel-header">
+        <h2>Generar Ticket de Retiro</h2>
+        <div class="panel-indicator"></div>
+      </div>
+
+      <form id="ticketForm" novalidate>
+
+        <!-- Datos del Alumno -->
+        <fieldset>
+          <legend>Datos del Alumno</legend>
+          <div class="field-row">
+            <div class="field">
+              <label for="alumnoNombre">Nombre(s) *</label>
+              <input type="text" id="alumnoNombre" placeholder="Nombre del alumno" required>
+            </div>
+            <div class="field">
+              <label for="alumnoApellido">Apellido(s) *</label>
+              <input type="text" id="alumnoApellido" placeholder="Apellidos" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="curso">Curso *</label>
+              <select id="curso" required>
+                <option value="">-- Seleccionar --</option>
+                <optgroup label="Enseñanza Básica">
+                  <option>1° Básico A</option><option>1° Básico B</option>
+                  <option>2° Básico A</option><option>2° Básico B</option>
+                  <option>3° Básico A</option><option>3° Básico B</option>
+                  <option>4° Básico A</option><option>4° Básico B</option>
+                  <option>5° Básico A</option><option>5° Básico B</option>
+                  <option>6° Básico A</option><option>6° Básico B</option>
+                  <option>7° Básico A</option><option>7° Básico B</option>
+                  <option>8° Básico A</option><option>8° Básico B</option>
+                </optgroup>
+                <optgroup label="Enseñanza Media">
+                  <option>I° Medio A</option><option>I° Medio B</option>
+                  <option>II° Medio A</option><option>II° Medio B</option>
+                  <option>III° Medio A</option><option>III° Medio B</option>
+                  <option>IV° Medio A</option><option>IV° Medio B</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="field">
+              <label for="rut">RUT Alumno</label>
+              <input type="text" id="rut" placeholder="12.345.678-9" maxlength="12">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Motivo de Retiro -->
+        <fieldset>
+          <legend>Motivo de Retiro</legend>
+          <div class="field-row">
+            <div class="field">
+              <label for="motivo">Motivo *</label>
+              <select id="motivo" required>
+                <option value="">-- Seleccionar --</option>
+                <option>Cita Médica</option>
+                <option>Urgencia Médica</option>
+                <option>Control Dental</option>
+                <option>Trámite Personal</option>
+                <option>Problema Familiar</option>
+                <option>Solicitud del Apoderado</option>
+                <option>Actividad Deportiva</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="motivoDetalle">Detalle (opcional)</label>
+              <input type="text" id="motivoDetalle" placeholder="Especificar si es necesario">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Apoderado / Responsable -->
+        <fieldset>
+          <legend>Apoderado / Responsable</legend>
+          <div class="field-row">
+            <div class="field">
+              <label for="apoderadoNombre">Nombre completo *</label>
+              <input type="text" id="apoderadoNombre" placeholder="Nombre del apoderado" required>
+            </div>
+            <div class="field">
+              <label for="apoderadoRut">RUT Apoderado</label>
+              <input type="text" id="apoderadoRut" placeholder="12.345.678-9" maxlength="12">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="parentesco">Parentesco</label>
+              <select id="parentesco">
+                <option>Madre</option>
+                <option>Padre</option>
+                <option>Apoderado(a)</option>
+                <option>Abuelo/a</option>
+                <option>Tío/a</option>
+                <option>Hermano/a Mayor</option>
+                <option>Otro Familiar</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" placeholder="+56 9 XXXX XXXX">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Autorización -->
+        <fieldset>
+          <legend>Autorización</legend>
+          <div class="field-row">
+            <div class="field">
+              <label for="autorizado">Nombre del Docente</label>
+              <input type="text" id="autorizado" placeholder="Nombre del docente que autoriza">
+            </div>
+            <div class="field">
+              <label for="funcionario">Asignatura</label>
+              <input type="text" id="funcionario" placeholder="Asignatura del docente">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Acciones -->
+        <div class="form-actions">
+          <button type="button" id="btnLimpiar" class="btn btn-secondary">🗑 Limpiar</button>
+          <button type="submit" id="btnGenerar" class="btn btn-primary">🖨 Generar Ticket</button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- ── Vista Previa ── -->
+    <section class="preview-panel">
+      <div class="panel-header">
+        <h2>Vista Previa del Ticket</h2>
+        <div class="panel-indicator"></div>
+      </div>
+
+      <div class="ticket-wrapper">
+        <div id="ticketPreview" class="ticket-empty">
+          <div class="empty-state">
+            <div class="empty-icon">🎫</div>
+            <p>Complete el formulario y presione<br><strong>Generar Ticket</strong> para ver la vista previa</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado Google Sheets -->
+      <div id="sheetsStatus" class="sheets-status"></div>
+
+      <!-- Botones de acción (se muestran tras generar) -->
+      <div class="preview-actions" id="previewActions" style="display:none">
+        <button id="btnImprimir" class="btn btn-print">🖨 Imprimir Ticket</button>
+        <button id="btnNuevo"    class="btn btn-secondary">Nuevo</button>
+      </div>
+
+      <!-- Estadísticas del día -->
+      <div class="stats-bar">
+        <div class="stat">
+          <span class="stat-label">Tickets hoy</span>
+          <span class="stat-value" id="ticketCount">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Último</span>
+          <span class="stat-value" id="lastTicketTime">--:--</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">N° Folio</span>
+          <span class="stat-value" id="currentFolio" style="font-size:0.75rem;margin-top:3px">---</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     PÁGINA: INFORME MENSUAL
+════════════════════════════════════════════════════ -->
+<div class="page" id="page-informe">
+  <div class="report-container">
+
+    <!-- Controles de selección -->
+    <div class="report-controls">
+      <div class="panel-header">
+        <h2>📊 Informe Mensual de Retiros</h2>
+        <div class="panel-indicator"></div>
+      </div>
+      <div class="report-controls-body">
+        <div class="field">
+          <label for="reportMes">Mes</label>
+          <select id="reportMes">
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="reportAnio">Año</label>
+          <select id="reportAnio"></select>
+        </div>
+        <button class="btn btn-primary"   onclick="generarInforme()">🔍 Generar Informe</button>
+        <button class="btn btn-secondary" onclick="imprimirInforme()">🖨 Imprimir Informe</button>
+      </div>
+    </div>
+
+    <!-- Contenido dinámico del informe -->
+    <div id="reportContent">
+      <div class="empty-report">
+        <div class="empty-icon">📊</div>
+        <p>Seleccione un mes y año, luego presione <strong>Generar Informe</strong></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════
+     ÁREA DE IMPRESIÓN TÉRMICA (oculta en pantalla)
+════════════════════════════════════════════════════ -->
+<div id="printArea" style="display:none"></div>
+
+
+<!-- ════════════════════════════════════════════════════
+     TOAST (notificaciones flotantes)
+════════════════════════════════════════════════════ -->
+<div id="toast" class="toast"></div>
+
+
+<!-- ════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  Desarrollado por <strong>Franco</strong>
+</footer>
+
+
+<!-- ════════════════════════════════════════════════════
+     DEPENDENCIAS Y SCRIPT
+════════════════════════════════════════════════════ -->
+<!-- Chart.js (gráficos del informe) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<!-- Script principal -->
+<script src="script.js"></script>
+
+</body>
+</html>

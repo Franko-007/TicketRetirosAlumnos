@@ -1,0 +1,824 @@
+/* ============================================================
+   LICEO BICENTENARIO – NUESTRA SEÑORA DE GUADALUPE
+   Sistema de Retiro de Alumnos
+   Archivo: style.css
+   ============================================================ */
+
+
+/* ══════════════════════════════════════════════
+   1. VARIABLES – COLORES INSTITUCIONALES
+══════════════════════════════════════════════ */
+:root {
+  /* Azul institucional */
+  --navy:        #1a2c6b;
+  --navy-deep:   #0f1a45;
+  --navy-mid:    #2a3f8f;
+  --navy-light:  #3d55b0;
+
+  /* Amarillo institucional */
+  --yellow:      #f5c800;
+  --yellow-lt:   #ffe44d;
+  --yellow-pale: #fff9d6;
+
+  /* Superficies */
+  --cream:       #f8f9fc;
+  --bg:          #eef0f7;
+  --bg-panel:    #ffffff;
+
+  /* Texto */
+  --text:        #111827;
+  --text-soft:   #4b5a7a;
+
+  /* Bordes y sombras */
+  --border:      #c8cfe8;
+  --shadow:      0 4px 24px rgba(26, 44, 107, 0.12);
+  --radius:      10px;
+
+  /* Tipografía */
+  --font-head: 'Bebas Neue', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+  --font-cond: 'Barlow Condensed', sans-serif;
+}
+
+
+/* ══════════════════════════════════════════════
+   2. RESET Y BASE
+══════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 39px,
+    rgba(26, 44, 107, 0.04) 39px, rgba(26, 44, 107, 0.04) 40px
+  );
+}
+
+
+/* ══════════════════════════════════════════════
+   3. HEADER
+══════════════════════════════════════════════ */
+.site-header {
+  background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 55%, var(--navy-mid) 100%);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(15, 26, 69, 0.50);
+  border-bottom: 3px solid var(--yellow);
+}
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 11px 32px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.logo-img {
+  height: 64px;
+  width: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+}
+.school-info { flex: 1; }
+.school-subtitle {
+  font-family: var(--font-cond);
+  font-size: 0.7rem;
+  letter-spacing: 0.26em;
+  color: var(--yellow-lt);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.school-name {
+  font-family: var(--font-head);
+  font-size: 1.9rem;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: #fff;
+}
+.school-tagline {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.60);
+  font-weight: 300;
+  letter-spacing: 0.07em;
+  margin-top: 2px;
+}
+.header-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-cond);
+}
+.header-badge #current-time {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  color: var(--yellow-lt);
+  line-height: 1;
+}
+.header-badge #current-date {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+
+/* ══════════════════════════════════════════════
+   4. NAVEGACIÓN (Pestañas)
+══════════════════════════════════════════════ */
+.nav-tabs {
+  background: var(--navy-deep);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.nav-tabs-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+}
+.nav-tab {
+  font-family: var(--font-cond);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.50);
+  padding: 10px 22px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.nav-tab:hover  { color: rgba(255, 255, 255, 0.88); }
+.nav-tab.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+
+/* ══════════════════════════════════════════════
+   5. PÁGINAS
+══════════════════════════════════════════════ */
+.page        { display: none; }
+.page.active { display: block; }
+
+
+/* ══════════════════════════════════════════════
+   6. LAYOUT PRINCIPAL – PÁGINA RETIRO
+══════════════════════════════════════════════ */
+.main-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 26px 22px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 24px;
+  align-items: start;
+}
+
+
+/* ══════════════════════════════════════════════
+   7. PANELES GENÉRICOS
+══════════════════════════════════════════════ */
+.form-panel,
+.preview-panel {
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.panel-header {
+  background: linear-gradient(90deg, var(--navy) 0%, var(--navy-mid) 100%);
+  padding: 13px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--yellow);
+}
+.panel-header h2 {
+  font-family: var(--font-cond);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.panel-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 8px var(--yellow-lt);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+
+/* ══════════════════════════════════════════════
+   8. FORMULARIO
+══════════════════════════════════════════════ */
+form       { padding: 20px; }
+fieldset   { border: none; margin-bottom: 18px; }
+
+fieldset legend {
+  font-family: var(--font-cond);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--navy);
+  padding: 0 0 7px 0;
+  width: 100%;
+  border-bottom: 2px solid var(--navy);
+  margin-bottom: 13px;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  margin-bottom: 11px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+input,
+select {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  background: var(--cream);
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+input:focus,
+select:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(26, 44, 107, 0.13);
+}
+input::placeholder { color: #9daac8; font-style: italic; }
+input.error,
+select.error { border-color: #c0392b; background: #fff5f5; }
+
+
+/* ══════════════════════════════════════════════
+   9. BOTONES
+══════════════════════════════════════════════ */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 11px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+.btn {
+  font-family: var(--font-cond);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 11px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* Azul marino – acción principal */
+.btn-primary {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(26, 44, 107, 0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(26, 44, 107, 0.45);
+}
+
+/* Secundario neutro */
+.btn-secondary {
+  background: var(--bg);
+  color: var(--navy);
+  border: 1.5px solid var(--border);
+}
+.btn-secondary:hover { background: var(--border); }
+
+/* Amarillo – imprimir ticket */
+.btn-print {
+  background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-lt) 100%);
+  color: var(--navy-deep);
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 12px 28px;
+  box-shadow: 0 4px 14px rgba(245, 200, 0, 0.40);
+  flex: 1;
+  justify-content: center;
+  border: 2px solid var(--yellow);
+}
+.btn-print:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(245, 200, 0, 0.55);
+}
+
+
+/* ══════════════════════════════════════════════
+   10. PANEL PREVIEW – TICKET
+══════════════════════════════════════════════ */
+.ticket-wrapper  { padding: 20px; }
+.ticket-empty {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.empty-state { text-align: center; color: var(--text-soft); padding: 28px; }
+.empty-icon  { font-size: 3rem; margin-bottom: 14px; opacity: 0.3; }
+.empty-state p { font-size: 0.88rem; line-height: 1.6; }
+.preview-actions { padding: 0 20px 20px; display: flex; gap: 11px; }
+
+
+/* ══════════════════════════════════════════════
+   11. BARRA DE ESTADÍSTICAS
+══════════════════════════════════════════════ */
+.stats-bar {
+  border-top: 1px solid var(--border);
+  display: flex;
+  padding: 13px 20px;
+}
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 6px;
+  border-right: 1px solid var(--border);
+}
+.stat:last-child { border-right: none; }
+.stat-label {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+  font-weight: 700;
+}
+.stat-value {
+  font-family: var(--font-head);
+  font-size: 1.45rem;
+  color: var(--navy);
+  line-height: 1;
+}
+
+
+/* ══════════════════════════════════════════════
+   12. TICKET PREVIEW CARD (pantalla)
+══════════════════════════════════════════════ */
+.ticket-preview-card {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(26, 44, 107, 0.12);
+}
+.tp-header {
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  color: #fff;
+  padding: 13px 15px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 4px solid var(--yellow);
+}
+.tp-header-logo { height: 46px; width: auto; flex-shrink: 0; }
+.tp-header-text { flex: 1; }
+.tp-school-name {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+.tp-school-sub {
+  font-size: 0.66rem;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.1em;
+  margin-top: 3px;
+}
+.tp-title {
+  background: var(--yellow);
+  color: var(--navy-deep);
+  text-align: center;
+  font-family: var(--font-cond);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 7px;
+}
+.tp-folio {
+  text-align: right;
+  padding: 5px 13px;
+  font-size: 0.68rem;
+  color: var(--text-soft);
+  border-bottom: 1px dashed #dde;
+  font-family: var(--font-cond);
+  letter-spacing: 0.06em;
+}
+.tp-body { padding: 11px 15px; }
+.tp-section-title {
+  font-family: var(--font-cond);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+  border-top: 2px solid var(--navy);
+  padding-top: 7px;
+  margin: 9px 0 5px;
+}
+.tp-row {
+  display: flex;
+  border-bottom: 1px dashed #eee;
+  padding: 5px 0;
+}
+.tp-row:last-child { border-bottom: none; }
+.tp-label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--navy);
+  width: 110px;
+  flex-shrink: 0;
+}
+.tp-value { font-size: 0.85rem; color: var(--text); font-weight: 500; }
+.tp-firma-box {
+  margin: 0 15px 14px;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  background: var(--yellow-pale);
+}
+.tp-firma-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.tp-firma-cols { display: flex; gap: 14px; }
+.tp-firma-col {
+  flex: 1;
+  border-top: 1px solid var(--navy);
+  padding-top: 5px;
+  text-align: center;
+  font-size: 0.66rem;
+  color: #888;
+}
+.tp-barcode { display: flex; justify-content: center; margin: 7px 0; gap: 1px; }
+.tp-barcode span { display: inline-block; height: 26px; background: var(--navy-deep); }
+.tp-footer {
+  text-align: center;
+  padding: 9px 15px;
+  border-top: 1px dashed #ccd;
+  font-size: 0.66rem;
+  color: var(--text-soft);
+  letter-spacing: 0.04em;
+}
+
+
+/* ══════════════════════════════════════════════
+   13. ESTADO GOOGLE SHEETS
+══════════════════════════════════════════════ */
+.sheets-status {
+  margin: 8px 20px 0;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: var(--font-cond);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+.sheets-status.success { background: #e8f5e9; color: #1b5e20; border-left: 3px solid #4caf50; display: flex; }
+.sheets-status.error   { background: #ffebee; color: #b71c1c; border-left: 3px solid #c0392b; display: flex; }
+.sheets-status.loading { background: var(--yellow-pale); color: var(--navy-deep); border-left: 3px solid var(--yellow); display: flex; }
+
+
+/* ══════════════════════════════════════════════
+   14. TOAST (notificaciones)
+══════════════════════════════════════════════ */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--navy-deep);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: var(--font-cond);
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+  pointer-events: none;
+  border-left: 4px solid var(--yellow);
+  z-index: 999;
+}
+.toast.show  { transform: translateY(0); opacity: 1; }
+.toast.error { border-left-color: #e74c3c; }
+
+
+/* ══════════════════════════════════════════════
+   15. INFORME MENSUAL – CONTROLES
+══════════════════════════════════════════════ */
+.report-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 26px 22px;
+}
+.report-controls {
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.report-controls-body {
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+
+/* ══════════════════════════════════════════════
+   16. INFORME MENSUAL – CARDS Y GRÁFICOS
+══════════════════════════════════════════════ */
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.report-card {
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.report-card-full  { grid-column: 1 / -1; }
+.report-card-header {
+  background: linear-gradient(90deg, var(--navy) 0%, var(--navy-mid) 100%);
+  padding: 12px 18px;
+  border-bottom: 2px solid var(--yellow);
+}
+.report-card-header h3 {
+  font-family: var(--font-cond);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.report-card-body  { padding: 20px; }
+.chart-container   { position: relative; height: 260px; }
+
+
+/* ══════════════════════════════════════════════
+   17. TABLA DE RETIROS
+══════════════════════════════════════════════ */
+.retiros-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.retiros-table th {
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--font-cond);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 2px solid var(--yellow);
+}
+.retiros-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.retiros-table tr:nth-child(even) td { background: var(--cream); }
+.retiros-table tr:hover td           { background: rgba(26, 44, 107, 0.05); }
+.curso-badge {
+  background: var(--navy);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-family: var(--font-cond);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: inline-block;
+}
+
+
+/* ══════════════════════════════════════════════
+   18. TARJETAS RESUMEN (informe)
+══════════════════════════════════════════════ */
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.summary-card {
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  padding: 18px;
+  text-align: center;
+  border-top: 4px solid var(--navy);
+}
+.summary-card.s2 { border-top-color: var(--yellow); }
+.summary-card.s3 { border-top-color: var(--navy-light); }
+.summary-card.s4 { border-top-color: var(--navy-mid); }
+.summary-num {
+  font-family: var(--font-head);
+  font-size: 2.5rem;
+  color: var(--navy);
+  line-height: 1;
+}
+.summary-card.s2 .summary-num { color: #8a6f00; }
+.summary-lbl {
+  font-family: var(--font-cond);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-top: 4px;
+  font-weight: 700;
+}
+
+
+/* ══════════════════════════════════════════════
+   19. CABECERA DEL INFORME IMPRIMIBLE
+══════════════════════════════════════════════ */
+.informe-cabecera {
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  border-radius: 10px;
+  padding: 22px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-bottom: 4px solid var(--yellow);
+  box-shadow: var(--shadow);
+}
+.inf-logo  { height: 64px; width: auto; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4)); }
+.inf-title { color: #fff; }
+.inf-sub   { font-family: var(--font-cond); font-size: 0.75rem; letter-spacing: 0.22em; color: var(--yellow-lt); font-weight: 700; text-transform: uppercase; }
+.inf-h     { font-family: var(--font-head); font-size: 2rem; line-height: 1.1; }
+.inf-date  { font-size: 0.82rem; color: rgba(255, 255, 255, 0.65); margin-top: 3px; }
+
+
+/* ══════════════════════════════════════════════
+   20. ESTADO VACÍO (informe sin datos)
+══════════════════════════════════════════════ */
+.empty-report { text-align: center; padding: 50px; color: var(--text-soft); }
+.empty-report .empty-icon { font-size: 3.5rem; opacity: 0.25; margin-bottom: 14px; }
+
+
+/* ══════════════════════════════════════════════
+   21. FOOTER
+══════════════════════════════════════════════ */
+.site-footer {
+  margin-top: auto;
+  background: var(--navy-deep);
+  border-top: 3px solid var(--yellow);
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  padding: 14px 20px;
+  font-family: var(--font-cond);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+.site-footer strong {
+  color: var(--yellow-lt);
+  font-weight: 700;
+}
+
+
+/* ══════════════════════════════════════════════
+   22. ESTILOS DE IMPRESIÓN
+══════════════════════════════════════════════ */
+
+/* — Modo ticket 80mm — */
+@media print {
+
+  body.print-ticket-mode { background: #fff !important; }
+  body.print-ticket-mode > *:not(#printArea) { display: none !important; }
+  body.print-ticket-mode #printArea {
+    display: block !important;
+    width: 80mm;
+    font-family: 'Courier New', monospace;
+    font-size: 11pt;
+    color: #000;
+    background: #fff;
+    padding: 3mm 4mm;
+  }
+
+  /* — Modo informe A4 — */
+  body.print-informe-mode .site-header,
+  body.print-informe-mode .nav-tabs,
+  body.print-informe-mode .site-footer,
+  body.print-informe-mode #page-retiro,
+  body.print-informe-mode #printArea,
+  body.print-informe-mode #toast,
+  body.print-informe-mode .report-controls-body button { display: none !important; }
+
+  body.print-informe-mode .report-controls { border: none; box-shadow: none; }
+  body.print-informe-mode .report-controls .panel-header { display: none; }
+  body.print-informe-mode .report-controls-body { display: none !important; }
+  body.print-informe-mode #page-informe { display: block !important; }
+  body.print-informe-mode .report-container { padding: 0; }
+  body.print-informe-mode .report-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+  body.print-informe-mode .report-grid  { gap: 12px; }
+  body.print-informe-mode .summary-stats { gap: 10px; }
+  body.print-informe-mode .informe-cabecera { border-radius: 0; }
+
+  @page { margin: 10mm; }
+}
+
+/* Clases del ticket térmico (solo visibles en print-ticket-mode) */
+.print-header     { text-align: center; margin-bottom: 3mm; padding-bottom: 2mm; border-bottom: 2px solid #000; }
+.print-school-name { font-size: 13pt; font-weight: bold; text-transform: uppercase; line-height: 1.2; }
+.print-school-sub  { font-size: 8pt; margin-top: 1mm; }
+.print-title-bar  { font-size: 12pt; font-weight: bold; text-align: center; text-transform: uppercase; border: 2px solid #000; padding: 2mm; margin: 3mm 0; letter-spacing: 0.1em; background: #eee; }
+.print-folio      { font-size: 8pt; text-align: right; margin-bottom: 2mm; }
+.print-section    { font-size: 8pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #000; margin: 3mm 0 1mm; padding-bottom: 1mm; }
+.print-row        { font-size: 10pt; display: flex; margin-bottom: 1.5mm; }
+.print-lbl        { width: 26mm; font-weight: bold; flex-shrink: 0; font-size: 8pt; }
+.print-val        { flex: 1; font-size: 10pt; }
+.print-big        { font-size: 13pt; font-weight: bold; text-align: center; margin: 3mm 0; border: 2px solid #000; padding: 2mm; }
+.print-sign       { margin-top: 6mm; display: flex; gap: 4mm; }
+.print-sign-box   { flex: 1; border-top: 1px solid #000; padding-top: 1mm; font-size: 7.5pt; text-align: center; }
+.print-footer     { margin-top: 4mm; border-top: 1px dashed #000; padding-top: 2mm; text-align: center; font-size: 8pt; }
+.print-barcode    { text-align: center; font-size: 7pt; letter-spacing: 0.18em; margin: 2mm 0; }
+.print-cut        { text-align: center; font-size: 8pt; margin: 3mm 0; letter-spacing: 0.1em; }
+
+
+/* ══════════════════════════════════════════════
+   23. RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .main-container  { grid-template-columns: 1fr; }
+  .report-grid     { grid-template-columns: 1fr; }
+  .summary-stats   { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .field-row    { grid-template-columns: 1fr; }
+  .header-inner { flex-wrap: wrap; }
+  .summary-stats { grid-template-columns: 1fr 1fr; }
+}
