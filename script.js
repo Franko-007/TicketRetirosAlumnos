@@ -13,7 +13,7 @@
    el archivo appscript.gs en Google Apps Script.
    Ejemplo: 'https://script.google.com/macros/s/AKfyc.../exec'
 ══════════════════════════════════════════════════════════ */
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyuYPlqLg8Ib_SXlWkUWGRbkssOr0CXCc8SY9pTVDGM5WnWGGCaIshStqA8k_OTaZE/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwxki3F3lih4LBTjUa-rUM80jSYmF02mqKkJHrNG7JtgTs6V1oEKdJ8XW-PBiVKB2Y/exec';
 
 
 /* ══════════════════════════════════════════════════════════
@@ -440,17 +440,67 @@ function resetForm() {
 /* ══════════════════════════════════════════════════════════
    16. INFORME MENSUAL
 ══════════════════════════════════════════════════════════ */
-function generarInforme() {
+async function generarInforme() {
   const mes   = parseInt(document.getElementById('reportMes').value);
   const anio  = parseInt(document.getElementById('reportAnio').value);
   const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
                  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-  // Filtrar registros del mes seleccionado
-  const data = registros.filter(r => {
+  // Mostrar indicador de carga
+  document.getElementById('reportContent').innerHTML = `
+    <div class="empty-report">
+      <div class="empty-icon">⏳</div>
+      <p>Cargando datos desde Google Sheets...</p>
+    </div>`;
+
+  // Intentar cargar datos desde Google Sheets
+  let sheetsData = [];
+  if (SHEETS_URL) {
+    try {
+      const url = `${SHEETS_URL}?action=getRetiros&mes=${mes}&anio=${anio}`;
+      const resp = await fetch(url);
+      const json = await resp.json();
+      if (json.ok && Array.isArray(json.registros)) {
+        sheetsData = json.registros;
+      }
+    } catch (err) {
+      console.warn('No se pudo cargar desde Sheets, usando datos locales:', err);
+    }
+  }
+
+  // Combinar datos de Sheets con localStorage (sin duplicar por folio)
+  const localData = registros.filter(r => {
     const d = new Date(r.timestamp);
     return d.getFullYear() === anio && (d.getMonth() + 1) === mes;
   });
+
+  // Normalizar registros de Sheets al mismo formato que localStorage
+  const sheetsNormalized = sheetsData.map(r => ({
+    folio:         r.folio         || '',
+    fecha:         r.fecha         || '',
+    hora:          r.hora          || '',
+    alumno:        r.alumno        || '',
+    alumnoNombre:  (r.alumno || '').split(' ')[0] || '',
+    alumnoApellido:(r.alumno || '').split(' ').slice(1).join(' ') || '',
+    rut:           r.rut_alumno    || '—',
+    curso:         r.curso         || '',
+    motivo:        r.motivo        || '',
+    motivoDetalle: '',
+    apoderado:     r.apoderado     || '',
+    apoderadoNombre: r.apoderado   || '',
+    apoderadoRut:  r.rut_apoderado || '—',
+    parentesco:    r.parentesco    || '',
+    telefono:      r.telefono      || '—',
+    docente:       r.docente       || '—',
+    asignatura:    r.asignatura    || '—',
+    timestamp:     r.timestamp     || '',
+  }));
+
+  // Unir: preferir Sheets, completar con local si no está en Sheets
+  const sheetsFolios = new Set(sheetsNormalized.map(r => r.folio));
+  const soloLocal    = localData.filter(r => !sheetsFolios.has(r.folio));
+  const data         = [...sheetsNormalized, ...soloLocal]
+    .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
   if (data.length === 0) {
     document.getElementById('reportContent').innerHTML = `
@@ -458,7 +508,7 @@ function generarInforme() {
         <div class="empty-icon">📭</div>
         <p>No hay registros para <strong>${MESES[mes - 1]} ${anio}</strong></p>
         <p style="font-size:0.8rem;margin-top:8px;color:var(--text-soft)">
-          Los retiros generados se guardan automáticamente en este dispositivo.
+          Los retiros generados se guardan automáticamente en Google Sheets.
         </p>
       </div>`;
     return;
@@ -466,7 +516,7 @@ function generarInforme() {
 
   // Calcular estadísticas
   const totalRetiros  = data.length;
-  const alumnosUnicos = new Set(data.map(r => r.alumno)).size;
+  const alumnosUnicos = new Set(data.map(r => r.alumno || `${r.alumnoNombre || ''} ${r.alumnoApellido || ''}`.trim())).size;
   const motivosCont   = {};
   const cursosCont    = {};
   const diasCont      = {};
@@ -556,7 +606,7 @@ function generarInforme() {
                 <td style="font-family:var(--font-cond);font-size:0.75rem;color:var(--navy);font-weight:700">${r.folio}</td>
                 <td>${r.fecha}</td>
                 <td>${r.hora} hrs.</td>
-                <td><strong>${r.alumno}</strong></td>
+                <td><strong>${r.alumno || `${r.alumnoNombre || ''} ${r.alumnoApellido || ''}`.trim() || '—'}</strong></td>
                 <td><span class="curso-badge">${r.curso}</span></td>
                 <td>${r.apoderado || r.apoderadoNombre || '—'}</td>
                 <td>${r.motivo}</td>
